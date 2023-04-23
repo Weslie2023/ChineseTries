@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.*;
+//import java.io.FileNotFoundException;
+//import java.util.Scanner;
 
 class ChineseTrie {
 	private TrieNode root;
@@ -66,6 +68,31 @@ class ChineseTrie {
         } catch (IOException e) {
             e.printStackTrace();
         }
+	
+//        try {
+//            Scanner dictionary = new Scanner(new File("dictionary.txt"));
+//            while (dictionary.hasNext()) {
+//                String word = dictionary.next().toLowerCase();
+//                trie.insert(word);
+//            }
+//            dictionary.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            System.exit(1);
+//        }
+//        try {
+//            Scanner input = new Scanner(new File("words.txt"));
+//            while (input.hasNext()) {
+//                String word = input.next().toLowerCase();
+//                boolean exists = trie.search(word);
+//                System.out.println(word + ": " + (exists ? "correct" : "incorrect"));
+//            }
+//            input.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            System.exit(1);
+//        }
+		
 	}
 
 }
