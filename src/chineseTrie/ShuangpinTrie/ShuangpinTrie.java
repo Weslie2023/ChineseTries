@@ -1,5 +1,3 @@
-package chineseTrie;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -9,7 +7,7 @@ import java.util.*;
 public class ShuangPinTrie {
     private class TrieNode{
         private Map<Character, TrieNode> children;
-        private Map<String, List<Character>> pinyinToCharacters;
+        private Map<String, List<String>> pinyinToCharacters;
         boolean isWord;
 
         public TrieNode(){
@@ -22,7 +20,7 @@ public class ShuangPinTrie {
             return children;
         }
 
-        public Map<String, List<Character>> getPinyinToCharacters(){
+        public Map<String, List<String>> getPinyinToCharacters(){
             return pinyinToCharacters;
         }
 
@@ -36,8 +34,10 @@ public class ShuangPinTrie {
     }
 
     private TrieNode root;
-    private static HashSet<String> vowelSet = new HashSet<>(Arrays.asList("q","w","e","r","t","y","o","p","a","s","d","f","g","h","j","k","l","z","x","c","b","n","m","sh","ch","zh"));
+    static Map<String, ColumnPair> extractCol= extractColumns.getExtractCol();
 
+    Map<String,List<String>> cache=new HashMap<>();
+    private static HashSet<String> vowelSet = new HashSet<>(Arrays.asList("q","w","e","r","t","y","o","p","a","s","d","f","g","h","j","k","l","z","x","c","b","n","m","sh","ch","zh"));
     private static HashMap<String, String> consonantMap= new HashMap<>();
     static {
         consonantMap.put("sh","u");
@@ -120,7 +120,7 @@ public class ShuangPinTrie {
         return shuangPin;
     }
 
-    public void insert(String pinyin, Character character) {
+    public void insert(String pinyin, String character) {
         String shuangPin=getShuangpin(pinyin);
         TrieNode node = root;
         for (char c : shuangPin.toCharArray()) {
@@ -132,8 +132,11 @@ public class ShuangPinTrie {
         node.getPinyinToCharacters().get(shuangPin).add(character);
     }
 
-    public List<Character> search(String pinyin) {
-        String shuangPin=getShuangpin(pinyin);
+    public List<String> search(String pinyin) {
+        if (cache.containsKey(pinyin)) {
+            return cache.get(pinyin);
+        }
+        String shuangPin = getShuangpin(pinyin);
         TrieNode node = root;
         for (char c : shuangPin.toCharArray()) {
             node = node.getChildren().get(c);
@@ -141,49 +144,28 @@ public class ShuangPinTrie {
                 return Collections.emptyList();
             }
         }
-        return node.isWord() ? node.getPinyinToCharacters().get(shuangPin) : Collections.emptyList();
+        List<String> result = node.isWord() ? node.getPinyinToCharacters().get(shuangPin) : Collections.emptyList();
+        cache.put(pinyin, result);
+        return result;
     }
 
-    public static void main(String[] args) {
-        String pinYin="en";
-        System.out.println(getShuangpin(pinYin));
-        System.out.println(consonantMap);
-        String pinYin2="eng";
-        System.out.println(getShuangpin(pinYin2));
-        String pinYin3="a";
-        System.out.println(getShuangpin(pinYin3));
-        String pinYin4="meng";
-        System.out.println(getShuangpin(pinYin4));
+    public void insertAll(){
+        for(Map.Entry<String,ColumnPair> entry:extractCol.entrySet()){
+            ColumnPair pair=entry.getValue();
+            String shuangPin= pair.getCol1();
+            String character=pair.getCol2();
 
-        ShuangPinTrie trie = new ShuangPinTrie();
-        trie.insert("zhong", '中');
-        trie.insert("zhong", '忠');
-        trie.insert("zhong", '种');
-        trie.insert("shen", '深');
-        trie.insert("shen", '神');
-        trie.insert("shen", '申');
-        trie.insert("xiao", '小');
-        trie.insert("xiao", '笑');
-        trie.insert("xiao", '晓');
-        trie.insert("da", '大');
-        trie.insert("da", '达');
-        trie.insert("da", '打');
-
-        List<Character> zhong = trie.search("zhong");
-        List<Character> guo = trie.search("guo");
-        List<Character> xiao = trie.search("xiao");
-        List<Character> da = trie.search("da");
-
-        try {
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream("output.txt"), "UTF-8"));
-            out.println("zhong: " + zhong);
-            out.println("guo: " + guo);
-            out.println("xiao: " + xiao);
-            out.println("da: " + da);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.insert(shuangPin,character);
         }
+    }
+
+
+
+    public static void main(String[] args) {
+    ShuangPinTrie test=new ShuangPinTrie();
+    test.insertAll();
+    System.out.println(test.search("miao"));
+
     }
 
 }
