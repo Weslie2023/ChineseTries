@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ShuangPinTrie {
     private class TrieNode{
@@ -83,6 +85,8 @@ public class ShuangPinTrie {
     }
 
     public static String getShuangpin(String pinYin) {
+        pinYin=pinYin.substring(0,pinYin.length()-1);
+        System.out.println(pinYin);
         String shuangPin = "";
         String vowel;
         String consonant;
@@ -121,7 +125,9 @@ public class ShuangPinTrie {
     }
 
     public void insert(String pinyin, String character) {
-        String shuangPin=getShuangpin(pinyin);
+        String tone=pinyin.substring(pinyin.length()-1,pinyin.length());
+        String py=pinyin.substring(0,pinyin.length()-1);
+        String shuangPin=getShuangpin(py)+tone;
         TrieNode node = root;
         for (char c : shuangPin.toCharArray()) {
             node.getChildren().putIfAbsent(c, new TrieNode());
@@ -136,7 +142,9 @@ public class ShuangPinTrie {
         if (cache.containsKey(pinyin)) {
             return cache.get(pinyin);
         }
-        String shuangPin = getShuangpin(pinyin);
+        String tone=pinyin.substring(pinyin.length()-1);
+        String py=pinyin.substring(0,pinyin.length()-1);
+        String shuangPin=getShuangpin(py)+tone;
         TrieNode node = root;
         for (char c : shuangPin.toCharArray()) {
             node = node.getChildren().get(c);
@@ -162,9 +170,9 @@ public class ShuangPinTrie {
 
 
     public static void main(String[] args) {
-    ShuangPinTrie test=new ShuangPinTrie();
-    test.insertAll();
-    System.out.println(test.search("miao"));
+        ShuangPinTrie test=new ShuangPinTrie();
+        test.insertAll();
+        System.out.println(test.search("a1"));
 
     }
 
