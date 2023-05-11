@@ -88,21 +88,21 @@ public class ChineseTrie {
         ArrayList<Long> insertTimeList=new ArrayList<>();
         ArrayList<Long> searchTimeList=new ArrayList<>();
         ArrayList<Long> usedMemoryList=new ArrayList<>();
-        while(count<2000) {
-            long startTime = System.currentTimeMillis();
+        while(count<2000 ) {
+            long startTime = System.nanoTime();
             for (int i = 0; i < pinyinList.size() - 1; i++) {
                 trie.insert(pinyinList.get(i), characterList.get(i));
             }
-            long endTime = System.currentTimeMillis();
+            long endTime = System.nanoTime();
             insertTimeList.add(endTime - startTime);
 //            System.out.println("Time taken to insert 10000 entries: " + (endTime - startTime) + " ms");
 
 
-            startTime = System.currentTimeMillis();
+            startTime = System.nanoTime();
             for (int i = 0; i < 410; i++) {
                 trie.search(pinyinList.get(i));
             }
-            endTime = System.currentTimeMillis();
+            endTime = System.nanoTime();
             searchTimeList.add(endTime - startTime);
 //            System.out.println("Time taken to search for 1000 entries: " + (endTime - startTime) + " ms");
 
@@ -120,24 +120,25 @@ public class ChineseTrie {
         for(int i=0;i<insertTimeList.size();i++){
             insertSum+=insertTimeList.get(i);
         }
-        System.out.println("the avg of insert time is "+insertSum/count+" ms");
+        System.out.println("the avg of insert time is "+insertSum/count+" ns");
 
         Double searchSum=0d;
         for(int i=0;i<searchTimeList.size();i++){
-            insertSum+=searchTimeList.get(i);
+            searchSum+=searchTimeList.get(i);
         }
-        System.out.println("the avg of search time is "+searchSum/count+" ms");
+        System.out.println("the avg of search time is "+searchSum/count+" ns");
 
         Double memorySum=0d;
         for(int i=0;i<usedMemoryList.size();i++){
             memorySum+=usedMemoryList.get(i);
         }
         System.out.println("the avg memory is "+ memorySum/count+" KB");
-
         System.out.println("insert time: "+insertTimeList);
         System.out.println("search time: "+searchTimeList);
         System.out.println("memory: "+usedMemoryList);
     }
+
+
 
     private static List<String> generateTestData(int n) {
         List<String> testData = new ArrayList<>();
