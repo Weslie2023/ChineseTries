@@ -11,12 +11,14 @@ Objective: To create an efficient data structure for storing and searching Chine
 ## Instruction
 To properly execute the code in this repository, please follow the guidelines below:
 
-- Open your preferred Integrated Development Environment (IDE) and import the entire folder named ```ShuangpinTrie``` as a project. 
+- There are three folders in the ```src``` folder: ```ShuangpinTrie```, ```chineseTrie``` and ```chineseTrieTest```
 
-- If you want to explore and test the functionality of the data structure, run the ```ShuangPinTrie.java``` file. This file contains the main code for the ShuangpinTrie data structure.
+- ```ShuangpinTrie``` includes ChineseTrie and ShuangpinTrie and their performance test.
 
-- If you are interested in testing the performance of the ShuangpinTrie, execute the ```ShuangPinTriePerformanceTest.java``` file. This test class is specifically designed to evaluate the performance and efficiency of the data structure under various scenarios.
+- If you want to explore and test the functionality of the data structure, run the ```ShuangPinTrie.java``` file in the ```ShuangpinTrie``` folder. This file contains the main code for the ShuangpinTrie data structure.
 
-- For experimentation and testing of the ChineseTrie, run the ```ChineseTrie.java``` file. This class provides an implementation of the ChineseTrie data structure.
+- If you are interested in testing the performance of the ShuangpinTrie, execute the ```ShuangPinTriePerformanceTest.java``` file in the ```ShuangpinTrie``` folder. This test class is specifically designed to evaluate the performance and efficiency of the data structure under various scenarios.
+
+- For experimentation and testing of the ChineseTrie, run the ```ChineseTrie.java``` file in the ```ShuangpinTrie``` folder. This class provides an implementation of the ChineseTrie data structure.
 
 Please refer to the project documentation or consult the project's README file for any additional instructions or requirements specific to this repository.
