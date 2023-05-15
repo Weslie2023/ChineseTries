@@ -1,6 +1,10 @@
 
+package ShuangpinTrie;
+
 
 import java.util.*;
+
+import static ShuangpinTrie.ShuangPinTrie.extractCol;
 
 public class ChineseTrie {
 
@@ -39,6 +43,8 @@ public class ChineseTrie {
     public ChineseTrie() {
         root = new TrieNode();
     }
+    static HashSet<String> allPinyin= getAllPinyin();
+    static HashSet<String> allChar= getAllChar();
 
 
     public void insert(String pinyin, String character) {
@@ -74,12 +80,30 @@ public class ChineseTrie {
             this.insert(py,character);
         }
     }
+    public static HashSet<String> getAllPinyin(){
+        HashSet<String> allPinyin= new HashSet<>();
+        for(Map.Entry<String, ColumnPair> entry:extractCol.entrySet()){
+            String pinYin= entry.getValue().getCol1();
+            allPinyin.add(pinYin);
+        }
+        return allPinyin;
+    }
+
+    public static HashSet<String> getAllChar(){
+        HashSet<String> allChar=new HashSet<>();
+        for(Map.Entry<String,ColumnPair> entry:extractCol.entrySet()){
+            String character=entry.getValue().getCol2();
+            allChar.add(character);
+        }
+        return allChar;
+    }
 
     public static void main(String[] args) {
         ChineseTrie trie = new ChineseTrie();
 
-        List<String> pinyinList = new ArrayList<>(ShuangPinTriePerformanceTest.allPinyin);
-        List<String> characterList = new ArrayList<>(ShuangPinTriePerformanceTest.allChar);
+
+        List<String> pinyinList = new ArrayList<>(allPinyin);
+        List<String> characterList = new ArrayList<>(allChar);
 
 //        List<String> pinyinList=generateTestData(100000);
 //        List<String> characterList=generateTestData(10000);
@@ -146,8 +170,8 @@ public class ChineseTrie {
         for (int i = 0; i < n; i++) {
             StringBuilder sb = new StringBuilder();
             for (int j = 0; j < 3; j++) {
-                int index = random.nextInt(ShuangPinTriePerformanceTest.allPinyin.size());
-                sb.append(ShuangPinTriePerformanceTest.allPinyin.toArray()[index]);
+                int index = random.nextInt(allPinyin.size());
+                sb.append(allPinyin.toArray()[index]);
             }
             sb.append(random.nextInt(5) + 1);
             testData.add(sb.toString());

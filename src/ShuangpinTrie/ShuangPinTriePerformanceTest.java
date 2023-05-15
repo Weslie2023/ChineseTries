@@ -1,10 +1,34 @@
+package ShuangpinTrie;
+
+import ShuangpinTrie.ColumnPair;
+import ShuangpinTrie.ShuangPinTrie;
+
 import java.util.*;
 
+import static ShuangpinTrie.ShuangPinTrie.extractCol;
+
 public class ShuangPinTriePerformanceTest {
-    static HashSet<String> allPinyin= ShuangPinTrie.getAllPinyin();
-    static HashSet<String> allChar= ShuangPinTrie.getAllChar();
 
+    static HashSet<String> allPinyin= getAllPinyin();
+    static HashSet<String> allChar= getAllChar();
 
+    public static HashSet<String> getAllPinyin(){
+        HashSet<String> allPinyin= new HashSet<>();
+        for(Map.Entry<String, ColumnPair> entry:extractCol.entrySet()){
+            String pinYin= entry.getValue().getCol1();
+            allPinyin.add(pinYin);
+        }
+        return allPinyin;
+    }
+
+    public static HashSet<String> getAllChar(){
+        HashSet<String> allChar=new HashSet<>();
+        for(Map.Entry<String,ColumnPair> entry:extractCol.entrySet()){
+            String character=entry.getValue().getCol2();
+            allChar.add(character);
+        }
+        return allChar;
+    }
     public static void main(String[] args) {
         ShuangPinTrie trie = new ShuangPinTrie();
 //        ShuangPinTrieOrigin trie=new ShuangPinTrieOrigin();

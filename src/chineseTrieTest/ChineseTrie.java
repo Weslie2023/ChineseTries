@@ -1,3 +1,4 @@
+package chineseTrieTest;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -10,7 +11,35 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 class ChineseTrie {
-	private TrieNode root;
+    class TrieNode {
+        private Map<Character, TrieNode> children;
+        private Map<String, List<Character>> pinyinToCharacters;
+        private boolean isWordEnd;
+
+        public TrieNode() {
+            children = new HashMap<>();
+            pinyinToCharacters = new HashMap<>();
+            isWordEnd = false;
+        }
+
+        public Map<Character, TrieNode> getChildren() {
+            return children;
+        }
+
+        public Map<String, List<Character>> getPinyinToCharacters() {
+            return pinyinToCharacters;
+        }
+
+        public boolean isWordEnd() {
+            return isWordEnd;
+        }
+
+        public void setWordEnd(boolean isWordEnd) {
+            this.isWordEnd = isWordEnd;
+        }
+    }
+
+    private TrieNode root;
 
 	public ChineseTrie() {
 		root = new TrieNode();
@@ -37,7 +66,7 @@ class ChineseTrie {
 		}
 		return node.isWordEnd() ? node.getPinyinToCharacters().get(pinyin) : Collections.emptyList();
 	}
-	
+
     public void loadPinyinDataset(String filename) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8))) {
             String line;

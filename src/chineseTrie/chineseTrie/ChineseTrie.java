@@ -1,4 +1,4 @@
-package chineseTrie;
+package chineseTrie.chineseTrie;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,6 +9,33 @@ import java.util.*;
 //import java.util.Scanner;
 
 class ChineseTrie {
+	class TrieNode {
+		private Map<Character, TrieNode> children;
+		private Map<String, List<Character>> pinyinToCharacters;
+		private boolean isWordEnd;
+
+		public TrieNode() {
+			children = new HashMap<>();
+			pinyinToCharacters = new HashMap<>();
+			isWordEnd = false;
+		}
+
+		public Map<Character, TrieNode> getChildren() {
+			return children;
+		}
+
+		public Map<String, List<Character>> getPinyinToCharacters() {
+			return pinyinToCharacters;
+		}
+
+		public boolean isWordEnd() {
+			return isWordEnd;
+		}
+
+		public void setWordEnd(boolean isWordEnd) {
+			this.isWordEnd = isWordEnd;
+		}
+	}
 	private TrieNode root;
 
 	public ChineseTrie() {
@@ -68,7 +95,8 @@ class ChineseTrie {
         } catch (IOException e) {
             e.printStackTrace();
         }
-	
+
+
 //        try {
 //            Scanner dictionary = new Scanner(new File("dictionary.txt"));
 //            while (dictionary.hasNext()) {

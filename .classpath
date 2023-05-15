@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="chineseTrie/ShuangpinTrie/|chineseTrie/|chineseTrieTest/|chineseTrie/chineseTrie/" kind="src" path="src"/>
+	<classpathentry excluding="ShuangpinTrie/|chineseTrie/" kind="src" path="src/chineseTrie"/>
+	<classpathentry kind="src" path="src/chineseTrie/chineseTrie"/>
+	<classpathentry kind="src" path="src/chineseTrie/ShuangpinTrie"/>
+	<classpathentry kind="src" path="src/chineseTrieTest"/>
+	<classpathentry kind="output" path="out/production/ChineseTries"/>
+</classpath>

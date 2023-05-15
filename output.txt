@@ -1,0 +1,2 @@
+The construction time of the trie： 65 ns
+avg searching time： 791.1 ns

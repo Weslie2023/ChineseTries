@@ -1,3 +1,5 @@
+package ShuangpinTrie;
+
 import org.w3c.dom.ls.LSOutput;
 
 import java.io.FileOutputStream;
@@ -38,7 +40,7 @@ public class ShuangPinTrie {
     }
 
     private TrieNode root;
-    static Map<String, ColumnPair> extractCol= extractColumns.getExtractCol();
+    public static Map<String, ColumnPair> extractCol= extractColumns.getExtractCol();
 
 
     Map<String,List<String>> cache=new HashMap<>();
