@@ -16,7 +16,6 @@ class ChineseTrie {
 		root = new TrieNode();
 	}
 
-	// 添加拼音和汉字对应关系的方法
 	public void insert(String pinyin, Character character) {
 		TrieNode node = root;
 		for (char c : pinyin.toCharArray()) {
@@ -28,7 +27,6 @@ class ChineseTrie {
 		node.getPinyinToCharacters().get(pinyin).add(character);
 	}
 
-	// 根据拼音查询汉字的方法
 	public List<Character> search(String pinyin) {
 		TrieNode node = root;
 		for (char c : pinyin.toCharArray()) {
@@ -88,16 +86,15 @@ class ChineseTrie {
 
         try {
             PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream("output.txt"), StandardCharsets.UTF_8));
-            out.println("字典树构建时间： " + duration + " 毫秒");
+            out.println("The construction time of the trie： " + duration + " ns");
 
 
-            // 获取所有拼音
             Set<String> allPinyin = trie.getAllPinyin();
-            int queryCount = 1000; // 设定查询次数
+            int queryCount = 1000;
             long totalTime = 0;
 
             for (int i = 0; i < queryCount; i++) {
-                // 随机选择拼音
+
                 int randomIndex = new Random().nextInt(allPinyin.size());
                 String randomPinyin = allPinyin.toArray(new String[0])[randomIndex];
 
@@ -111,7 +108,7 @@ class ChineseTrie {
             double averageQueryTime = totalTime / (double) queryCount;
 
 
-            out.println("平均查找速度： " + averageQueryTime + " 纳秒");
+            out.println("avg searching time： " + averageQueryTime + " ns");
             out.close();
         }catch (IOException e) {
             e.printStackTrace();
